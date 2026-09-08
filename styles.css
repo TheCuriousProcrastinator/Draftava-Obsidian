@@ -1,0 +1,75 @@
+.inzrt-capture-bubble {
+    position: fixed;
+    z-index: 10000;
+
+    width: 68px;
+    height: 30px;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    border:
+        1px solid
+        var(--background-modifier-border);
+
+    border-radius: 15px;
+
+    background:
+        var(--background-primary);
+
+    color:
+        var(--text-normal);
+
+    box-shadow:
+        var(--shadow-s);
+
+    font-family:
+        var(--font-interface);
+
+    cursor: pointer;
+    user-select: none;
+
+    transition:
+        background-color 80ms ease,
+        border-color 80ms ease,
+        transform 80ms ease;
+}
+
+.inzrt-capture-bubble:hover {
+    background:
+        var(--background-primary);
+
+    border-color:
+        var(--interactive-accent);
+
+    box-shadow:
+        var(--shadow-s);
+}
+
+.inzrt-capture-bubble:active {
+    transform: scale(0.97);
+}
+
+.inzrt-capture-bubble-icon {
+    width: 14px;
+    height: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inzrt-capture-bubble-icon svg {
+    width: 14px;
+    height: 14px;
+}
+
+.inzrt-capture-bubble-label {
+    font-size: 10px;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}

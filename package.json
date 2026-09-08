@@ -1,0 +1,14 @@
+{
+  "name": "inzrt-companion",
+  "version": "0.0.12",
+  "private": true,
+  "scripts": {
+    "build": "node esbuild.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "esbuild": "^0.25.0",
+    "obsidian": "latest",
+    "typescript": "^5.9.0"
+  }
+}
