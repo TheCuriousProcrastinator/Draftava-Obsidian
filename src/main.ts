@@ -37,7 +37,7 @@ import {
 
 
 const DEBUG_INZRT_APP =
-  "/tmp/INZRT-ObsidianCapture-1.1.58/Build/Products/Debug/INZRT.app";
+  "/Applications/INZRT.app";
 
 
 interface CaptureImage {
@@ -1287,7 +1287,7 @@ export default class INZRTCompanionPlugin
        The file is the payload.
 
        `open -a` launches INZRT when closed or
-       activates the already-running test build
+       activates the already-running installed app
        and delivers the capture file to it.
       */
       execFile(
