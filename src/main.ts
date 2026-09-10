@@ -36,8 +36,8 @@ import {
 } from "node:path";
 
 
-const DEBUG_INZRT_APP =
-  "/Applications/INZRT.app";
+const DEBUG_DRAFTAVA_APP =
+  "/Applications/Draftava.app";
 
 
 interface CaptureImage {
@@ -66,7 +66,7 @@ interface CaptureEnvelope {
 }
 
 
-export default class INZRTCompanionPlugin
+export default class DraftavaCompanionPlugin
   extends Plugin
 {
   private floatingActionEl:
@@ -78,7 +78,7 @@ export default class INZRTCompanionPlugin
     this.registerFloatingCaptureActions();
 
     new Notice(
-      "INZRT Companion loaded"
+      "Draftava Companion loaded"
     );
   }
 
@@ -136,7 +136,7 @@ export default class INZRTCompanionPlugin
             (item) => {
               item
                 .setTitle(
-                  "Send to INZRT"
+                  "Send to Draftava"
                 )
                 .setIcon("send")
                 .onClick(
@@ -204,7 +204,7 @@ export default class INZRTCompanionPlugin
             (item: any) => {
               item
                 .setTitle(
-                  "Send to INZRT"
+                  "Send to Draftava"
                 )
                 .setIcon("send")
                 .onClick(
@@ -537,7 +537,7 @@ export default class INZRTCompanionPlugin
       ?? this.app.workspace.getActiveFile();
 
     /*
-     INZRT-style position:
+     Draftava-style position:
      aligned to the end of the selected text and
      slightly above it when room is available.
      */
@@ -816,7 +816,7 @@ export default class INZRTCompanionPlugin
 
     button.setAttribute(
       "aria-label",
-      "Send to INZRT"
+      "Send to Draftava"
     );
 
     const icon =
@@ -841,7 +841,7 @@ export default class INZRTCompanionPlugin
       "inzrt-capture-bubble-label";
 
     label.textContent =
-      "INZRT";
+      "Draftava";
 
     button.appendChild(
       icon
@@ -1029,7 +1029,7 @@ export default class INZRTCompanionPlugin
       error
     ) {
       console.error(
-        "[INZRT Companion] local image read failed:",
+        "[Draftava Companion] local image read failed:",
         error
       );
 
@@ -1171,7 +1171,7 @@ export default class INZRTCompanionPlugin
       error
     ) {
       console.error(
-        "[INZRT Companion] remote image download failed:",
+        "[Draftava Companion] remote image download failed:",
         error
       );
 
@@ -1228,16 +1228,16 @@ export default class INZRTCompanionPlugin
 
     if (
       !existsSync(
-        DEBUG_INZRT_APP
+        DEBUG_DRAFTAVA_APP
       )
     ) {
       new Notice(
-        "INZRT test build is not available"
+        "Draftava app is not available"
       );
 
       console.error(
-        "[INZRT Companion] Missing app:",
-        DEBUG_INZRT_APP
+        "[Draftava Companion] Missing app:",
+        DEBUG_DRAFTAVA_APP
       );
 
       return;
@@ -1286,7 +1286,7 @@ export default class INZRTCompanionPlugin
       /*
        The file is the payload.
 
-       `open -a` launches INZRT when closed or
+       `open -a` launches Draftava when closed or
        activates the already-running installed app
        and delivers the capture file to it.
       */
@@ -1294,7 +1294,7 @@ export default class INZRTCompanionPlugin
         "/usr/bin/open",
         [
           "-a",
-          DEBUG_INZRT_APP,
+          DEBUG_DRAFTAVA_APP,
           capturePath
         ],
         (
@@ -1304,12 +1304,12 @@ export default class INZRTCompanionPlugin
             error
           ) {
             console.error(
-              "[INZRT Companion] open failed:",
+              "[Draftava Companion] open failed:",
               error
             );
 
             new Notice(
-              "Could not open INZRT"
+              "Could not open Draftava"
             );
 
             return;
@@ -1317,8 +1317,8 @@ export default class INZRTCompanionPlugin
 
           new Notice(
             ideas.length === 1
-              ? "Sent to INZRT"
-              : `Sent ${ideas.length} Ideas to INZRT`
+              ? "Sent to Draftava"
+              : `Sent ${ideas.length} Ideas to Draftava`
           );
         }
       );
@@ -1326,12 +1326,12 @@ export default class INZRTCompanionPlugin
       error
     ) {
       console.error(
-        "[INZRT Companion] send failed:",
+        "[Draftava Companion] send failed:",
         error
       );
 
       new Notice(
-        "Could not send to INZRT"
+        "Could not send to Draftava"
       );
     }
   }

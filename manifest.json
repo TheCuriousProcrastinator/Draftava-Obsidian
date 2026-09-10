@@ -1,9 +1,9 @@
 {
   "id": "inzrt-companion",
-  "name": "INZRT Companion for Obsidian",
-  "version": "0.0.13",
+  "name": "Draftava Companion for Obsidian",
+  "version": "0.0.14",
   "minAppVersion": "1.12.0",
-  "description": "Send selected Obsidian content to INZRT.",
+  "description": "Send selected Obsidian content to Draftava.",
   "author": "The Curious Procrastinator",
   "isDesktopOnly": true
 }
