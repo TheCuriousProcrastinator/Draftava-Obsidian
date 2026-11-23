@@ -191,3 +191,20 @@ Verify the current repository and this handoff before selecting the next product
 - Original checkout's uncommitted changes remain untouched.
 - Community directory submission and public release are pending.
 - GitHub Actions remain manual-only.
+
+
+## Draftava Companion 0.0.15 publication - November 23, 2026
+
+- Branch: feature/obsidian-community-submission.
+- Plugin ID remains inzrt-companion.
+- Public name: Draftava Companion.
+- Includes the Draftava landing-page links.
+- Includes Obsidian source URLs for imported Ideas.
+- Verified locally built main.js against the installed, manually tested plugin.
+- User confirmed source-link behavior on the actual Mac.
+- User confirmed Draftava 1.4.9 importer and Source editing behavior.
+- Default branch must contain manifest version 0.0.15.
+- GitHub release tag must be 0.0.15.
+- Release assets: main.js, manifest.json, styles.css.
+- Directory submission is a separate Obsidian account action.
+- No automatic GitHub Actions.

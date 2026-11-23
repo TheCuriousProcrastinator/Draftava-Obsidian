@@ -60,6 +60,7 @@ interface CaptureIdea {
   image?: CaptureImage;
   sourceTitle?: string;
   sourcePath?: string;
+  sourceUrl?: string;
 }
 
 
@@ -689,6 +690,17 @@ export default class DraftavaCompanionPlugin
     }
 
     if (idea) {
+      const activeNote =
+        this.app.workspace.getActiveFile();
+
+      if (
+        activeNote
+        && activeNote.extension.toLowerCase() === "md"
+      ) {
+        idea.sourceTitle = activeNote.basename;
+        idea.sourcePath = activeNote.path;
+      }
+
       this.sendPayload([
         idea
       ]);
@@ -1281,7 +1293,7 @@ export default class DraftavaCompanionPlugin
       'for (var i = 0; i < apps.count; i++) {',
       '  var app = apps.objectAtIndex(i);',
       '  var identifier = app.bundleIdentifier;',
-      '  if (identifier && ObjC.unwrap(identifier) === "com.local.inzrt") {',
+      '  if (identifier && (ObjC.unwrap(identifier) === "com.local.inzrt" || ObjC.unwrap(identifier) === "com.local.inzrt.filefirstproductionqa")) {',
       '    var url = app.bundleURL;',
       '    if (url) matches.push(ObjC.unwrap(url.path));',
       '  }',
@@ -1371,13 +1383,39 @@ export default class DraftavaCompanionPlugin
           `${randomUUID()}.inzrtcapture`
         );
 
+      const vaultName =
+        this.app.vault.getName();
+
+      const outgoingIdeas =
+        ideas.map((idea) => {
+          const file =
+            idea.sourcePath
+              ? this.app.vault.getAbstractFileByPath(
+                  idea.sourcePath
+                )
+              : null;
+
+          if (!(file instanceof TFile)) {
+            return idea;
+          }
+
+          return {
+            ...idea,
+            sourceUrl:
+              "obsidian://open?vault="
+              + encodeURIComponent(vaultName)
+              + "&file="
+              + encodeURIComponent(file.path)
+          };
+        });
+
       const envelope:
         CaptureEnvelope =
       {
         version:
           1,
 
-        ideas
+        ideas: outgoingIdeas
       };
 
       writeFileSync(
