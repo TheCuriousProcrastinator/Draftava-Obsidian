@@ -3,8 +3,8 @@
 
 - Repository: `TheCuriousProcrastinator/Draftava-Obsidian`; local working branch: `feature/obsidian-community-submission`.
 - Version data below is read from the **Git index** (the files staged for commit).
-- Source `manifest.json`: version `0.0.15`.
-- Source `package.json`: version `0.0.15`.
+- Source `manifest.json`: version `0.0.16`.
+- Source `package.json`: version `0.0.16`.
 - GitHub publication: Published GitHub release `0.0.15` (reported by GitHub API). Other distribution channels are **unverified**.
 - This section does **not** establish local build success, manual QA, App Store/Chrome Web Store approval, notarization, live website deployment, or release-asset integrity.
 - The narrative below maintains architecture, decisions, issues and test evidence. Its older status and version claims are **historical** unless explicitly reconciled with this section.
@@ -218,3 +218,16 @@ Verified Draftava Companion 0.0.15 publication - November 23, 2026
 - Published assets match the validated local files.
 - Obsidian Community Plugins submission remains pending.
 - GitHub Actions were not started.
+
+
+## Draftava Companion 0.0.16 - November 23, 2026
+
+- Corrected the Obsidian directory's blocking manifest-description error.
+- Description no longer contains the prohibited word.
+- Updated manifest, package metadata, lockfile and versions.json to 0.0.16.
+- Plugin JavaScript and styles remain identical to validated 0.0.15.
+- npm build, TypeScript and JavaScript checks passed on the user's Mac.
+- Installed plugin files match the exact local release files.
+- User confirmed manual capture, image and Source-link regression tests PASS.
+- GitHub Actions remain manual-only.
+- Obsidian directory review must be refreshed after publication.

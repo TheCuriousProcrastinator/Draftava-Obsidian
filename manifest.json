@@ -1,9 +1,9 @@
 {
   "id": "inzrt-companion",
   "name": "Draftava Companion",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "minAppVersion": "1.12.0",
-  "description": "Send selected text, notes, and images from Obsidian to Draftava on macOS.",
+  "description": "Send selected text, notes, and images directly to Draftava on macOS.",
   "author": "The Curious Procrastinator",
   "isDesktopOnly": true,
   "authorUrl": "https://offensivecaffeine.com/draftava/"
