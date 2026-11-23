@@ -5,7 +5,7 @@
 - Version data below is read from the **Git index** (the files staged for commit).
 - Source `manifest.json`: version `0.0.16`.
 - Source `package.json`: version `0.0.16`.
-- GitHub publication: Published GitHub release `0.0.15` (reported by GitHub API). Other distribution channels are **unverified**.
+- GitHub publication: Published GitHub release `0.0.16` (reported by GitHub API). Other distribution channels are **unverified**.
 - This section does **not** establish local build success, manual QA, App Store/Chrome Web Store approval, notarization, live website deployment, or release-asset integrity.
 - The narrative below maintains architecture, decisions, issues and test evidence. Its older status and version claims are **historical** unless explicitly reconciled with this section.
 - Before executable changes, inspect the actual checkout and validate the **exact files** on the real Mac. No automatic GitHub Actions.
@@ -231,3 +231,13 @@ Verified Draftava Companion 0.0.15 publication - November 23, 2026
 - User confirmed manual capture, image and Source-link regression tests PASS.
 - GitHub Actions remain manual-only.
 - Obsidian directory review must be refreshed after publication.
+
+
+## Verified 0.0.16 GitHub publication
+
+- Release 0.0.16 published and verified.
+- Source commit: f9c81dc3dad78345f6a28d8c0f757ae072257dc1.
+- Published main.js, manifest.json and styles.css match tested local files.
+- Both development branch and main updated.
+- Obsidian Community review refresh remains pending.
+- No GitHub Actions started.
