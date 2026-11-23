@@ -39,6 +39,9 @@ import {
 const DEBUG_DRAFTAVA_APP =
   "/Applications/Draftava.app";
 
+const DRAFTAVA_WEBSITE =
+  "https://offensivecaffeine.com/draftava/";
+
 
 interface CaptureImage {
   dataBase64: string;
@@ -76,6 +79,18 @@ export default class DraftavaCompanionPlugin
     this.registerSingleFileMenu();
     this.registerMultiFileMenu();
     this.registerFloatingCaptureActions();
+
+    this.addCommand({
+      id: "open-draftava-website",
+      name: "Get Draftava",
+      callback: () => {
+        window.open(
+          DRAFTAVA_WEBSITE,
+          "_blank",
+          "noopener,noreferrer"
+        );
+      }
+    });
 
     new Notice(
       "Draftava Companion loaded"
@@ -505,15 +520,37 @@ export default class DraftavaCompanionPlugin
       view?.editor.getSelection()
       ?? "";
 
+    const browserSelection =
+      window.getSelection();
+
     const domSelection =
-      window.getSelection()
-        ?.toString()
+      browserSelection?.toString()
       ?? "";
 
+    const selectionTouchesTitle =
+      [
+        browserSelection?.anchorNode,
+        browserSelection?.focusNode
+      ].some((node) => {
+        const element =
+          node instanceof Element
+            ? node
+            : node?.parentElement;
+
+        return Boolean(
+          element?.closest(
+            ".inline-title, .view-header-title"
+          )
+        );
+      });
+
     const selectedText =
-      editorSelection.trim().length > 0
-        ? editorSelection
-        : domSelection;
+      selectionTouchesTitle
+        && domSelection.trim().length > 0
+        ? domSelection
+        : editorSelection.trim().length > 0
+          ? editorSelection
+          : domSelection;
 
     if (
       selectedText.trim().length === 0
@@ -1217,29 +1254,99 @@ export default class DraftavaCompanionPlugin
   }
 
 
+  private showDraftavaUnavailableNotice(): void {
+    const notice = new Notice("", 12000);
+
+    notice.messageEl.textContent =
+      "Draftava app is not available. ";
+
+    const link = document.createElement("a");
+    link.textContent = "Get Draftava";
+    link.href = DRAFTAVA_WEBSITE;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+
+    notice.messageEl.appendChild(link);
+  }
+
+
+  private dispatchCaptureFile(
+    capturePath: string,
+    ideaCount: number
+  ): void {
+    const script = [
+      'ObjC.import("AppKit");',
+      'var apps = $.NSWorkspace.sharedWorkspace.runningApplications;',
+      'var matches = [];',
+      'for (var i = 0; i < apps.count; i++) {',
+      '  var app = apps.objectAtIndex(i);',
+      '  var identifier = app.bundleIdentifier;',
+      '  if (identifier && ObjC.unwrap(identifier) === "com.local.inzrt") {',
+      '    var url = app.bundleURL;',
+      '    if (url) matches.push(ObjC.unwrap(url.path));',
+      '  }',
+      '}',
+      'matches.find(function(path) {',
+      '  return path !== "/Applications/Draftava.app";',
+      '}) || matches[0] || "";'
+    ].join("\n");
+
+    execFile(
+      "/usr/bin/osascript",
+      ["-l", "JavaScript", "-e", script],
+      { timeout: 8000 },
+      (probeError, stdout) => {
+        if (probeError) {
+          console.error(
+            "[Draftava Companion] Running-app lookup failed:",
+            probeError
+          );
+          new Notice("Could not locate running Draftava");
+          return;
+        }
+
+        const runningPath = stdout.trim();
+        const appPath = runningPath || DEBUG_DRAFTAVA_APP;
+
+        if (
+          !appPath.endsWith(".app")
+          || !existsSync(appPath)
+        ) {
+          this.showDraftavaUnavailableNotice();
+          return;
+        }
+
+        execFile(
+          "/usr/bin/open",
+          ["-a", appPath, capturePath],
+          (error) => {
+            if (error) {
+              console.error(
+                "[Draftava Companion] open failed:",
+                error
+              );
+              new Notice("Could not open Draftava");
+              return;
+            }
+
+            new Notice(
+              ideaCount === 1
+                ? "Sent to Draftava"
+                : `Sent ${ideaCount} Ideas to Draftava`
+            );
+          }
+        );
+      }
+    );
+  }
+
+
   private sendPayload(
     ideas: CaptureIdea[]
   ): void {
     if (
       ideas.length === 0
     ) {
-      return;
-    }
-
-    if (
-      !existsSync(
-        DEBUG_DRAFTAVA_APP
-      )
-    ) {
-      new Notice(
-        "Draftava app is not available"
-      );
-
-      console.error(
-        "[Draftava Companion] Missing app:",
-        DEBUG_DRAFTAVA_APP
-      );
-
       return;
     }
 
@@ -1283,44 +1390,9 @@ export default class DraftavaCompanionPlugin
         "utf8"
       );
 
-      /*
-       The file is the payload.
-
-       `open -a` launches Draftava when closed or
-       activates the already-running installed app
-       and delivers the capture file to it.
-      */
-      execFile(
-        "/usr/bin/open",
-        [
-          "-a",
-          DEBUG_DRAFTAVA_APP,
-          capturePath
-        ],
-        (
-          error
-        ) => {
-          if (
-            error
-          ) {
-            console.error(
-              "[Draftava Companion] open failed:",
-              error
-            );
-
-            new Notice(
-              "Could not open Draftava"
-            );
-
-            return;
-          }
-
-          new Notice(
-            ideas.length === 1
-              ? "Sent to Draftava"
-              : `Sent ${ideas.length} Ideas to Draftava`
-          );
-        }
+      this.dispatchCaptureFile(
+        capturePath,
+        ideas.length
       );
     } catch (
       error

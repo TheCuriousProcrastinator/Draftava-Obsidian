@@ -1,10 +1,10 @@
 <!-- VIBE-CURRENT-STATE:START -->
 ## Current repository facts (generated, authoritative only for the facts listed)
 
-- Repository: `TheCuriousProcrastinator/Draftava-Obsidian`; local working branch: `main`.
+- Repository: `TheCuriousProcrastinator/Draftava-Obsidian`; local working branch: `feature/obsidian-community-submission`.
 - Version data below is read from the **Git index** (the files staged for commit).
-- Source `manifest.json`: version `0.0.14`.
-- Source `package.json`: version `0.0.14`.
+- Source `manifest.json`: version `0.0.15`.
+- Source `package.json`: version `0.0.15`.
 - GitHub publication: Published GitHub release `0.0.14` (reported by GitHub API). Other distribution channels are **unverified**.
 - This section does **not** establish local build success, manual QA, App Store/Chrome Web Store approval, notarization, live website deployment, or release-asset integrity.
 - The narrative below maintains architecture, decisions, issues and test evidence. Its older status and version claims are **historical** unless explicitly reconciled with this section.
@@ -174,3 +174,20 @@ Verify the current repository and this handoff before selecting the next product
 - Do not commit or push any executable change before successful validation in the real Mac checkout. The tool makes documentation updates only; GitHub Actions remain manual only.
 - Sparkle applications' release scripts refresh generated release facts in source and update-feed handoffs once their respective release milestones are reached. Verify the live release/feed before claiming publication succeeded. Projects without a scripted release must refresh and commit the handoff after externally verifying publication.
 - If GitHub release status cannot be verified, or the handoff contains unstaged edits, the hook blocks rather than guessing or overwriting your changes.
+
+## Obsidian Community Plugin 0.0.15 - November 23, 2026
+
+- Development branch: feature/obsidian-community-submission.
+- Baseline: bcf34b5.
+- Version 0.0.15, plugin ID remains inzrt-companion.
+- Public display name: Draftava Companion.
+- Added README, MIT LICENSE and versions.json.
+- Added Draftava landing-page links to metadata, documentation, command palette and missing-app notice.
+- Preserved the existing running-Draftava application detection improvement.
+- Fixed selected Obsidian title capture.
+- Local npm build, TypeScript and JavaScript checks passed.
+- User confirmed manual validation PASS on the actual Mac.
+- Installed main.js, manifest.json and styles.css verified against the tested local files.
+- Original checkout's uncommitted changes remain untouched.
+- Community directory submission and public release are pending.
+- GitHub Actions remain manual-only.
